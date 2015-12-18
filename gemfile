@@ -1,0 +1,4 @@
+require 'pry'
+require 'JSON'
+require 'open-uri'
+require 'rspec'
