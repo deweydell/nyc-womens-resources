@@ -28,25 +28,26 @@ class Controller
 
   BOROUGHS = ["bronx", "brooklyn", "manhattan", "queens", "staten_island"]
 
-  attr_accessor :category_index
   attr_reader :viewer
 
   def initialize
     @viewer = View.new
-    @category_index = 0
     main_runner
+  end
+
+  def final_results
+    @final_results
   end
 
   def main_runner
     viewer.welcome_message
-    user_index_choice = self.get_category_from_user
-    # do something with that number
-    puts "THE NUMBER THAT THE USER CHOSE WAS: #{user_index_choice}"
-  end
-
-
-  def get_category_from_user
-    viewer.search_prompt(CATEGORY_CODES) - 1
+    viewer.category_prompt(CATEGORY_CODES)
+    user_index_choice = viewer.get_input - 1
+    listing_by_category = build_listing_objects(CATEGORY_CODES[user_index_choice][1])
+    viewer.borough_prompt(BOROUGHS)
+    user_burough_choice = viewer.get_input
+    final_results = find_listings_by_location(listing_by_category, user_burough_choice)
+    viewer.display_listing(final_results)
   end
 
   def build_listing_objects(category_code)

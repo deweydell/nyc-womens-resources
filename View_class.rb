@@ -1,28 +1,37 @@
 class View
-  attr_accessor :category_to_search
-
-  def initialize
-    @category_to_search = 0
-  end
 
   def welcome_message
     print "Welcome to NYC Women's Resource Finder \n"
   end
 
-  def search_prompt(categories)
+  def category_prompt(categories)
     print "What Category number would you like to search? \n"
-    counter = 1
-      categories.each do |category_array|
-          print "#{counter}: #{category_array[0]} \n"
-          counter += 1
+      categories.each_with_index do |category_array, index|
+          print "#{index += 1}: #{category_array[0]} \n"
       end
-    self.category_to_search = gets.chomp.to_i
-    if !category_to_search.is_a?(Integer)
-      raise ArgumentError.new("Please select a number \n")
-      search_prompt
-    end
-    self.category_to_search
   end
+
+  def borough_prompt(boroughs)
+    print "What borough number would you like to search in? \n"
+    boroughs.each_with_index do |burough, index|
+      print "#{index + 1}: #{burough} \n"
+    end
+  end
+
+
+  def get_input
+    gets.chomp.to_i
+  end
+
+  #display result of #build listing objects method
+  #it's an array of listing objects, display as user friendly stuff
+
+  def display_listing(filtered_listings)
+    filtered_listings.each do |listing_object|
+      print "#{listing_object.name} \n"
+    end
+  end
+  #display #find_listings_by_location see above.
 
 end
 
