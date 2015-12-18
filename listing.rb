@@ -3,7 +3,7 @@ require 'open-uri'
 require "JSON"
 
 class Listing
-  BOROUGHS = ["brooklyn", "queens", "staten_island", "manhattan", "bronx"]
+  BOROUGHS = ["bronx", "brooklyn", "manhattan", "queens", "staten_island"]
   attr_reader :name, :borough, :address, :phone, :url, :description
 
   def initialize(args = {})
@@ -18,8 +18,3 @@ class Listing
     args.select { |col, val| BOROUGHS.include?(col) && val == "Y" }.map { |col, val| col }
   end
 end
-
-listings = open('http://data.cityofnewyork.us/resource/pqg4-dm6b.json?Aging=Y')
-aging_listings = JSON.parse(listings.read)
-
-p query = Listing.new(aging_listings.first)
