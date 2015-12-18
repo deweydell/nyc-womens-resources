@@ -18,20 +18,14 @@ class View
     end
   end
 
-
   def get_input
     gets.chomp.to_i
   end
 
-  #display result of #build listing objects method
-  #it's an array of listing objects, display as user friendly stuff
-
   def display_listing(filtered_listings)
-    filtered_listings.each do |listing_object|
+    filtered_listings[0..4].each do |listing_object|
       print "#{listing_object.name} \n"
+      print "#{listing_object.description} \n \n"
     end
   end
-  #display #find_listings_by_location see above.
-
 end
-
