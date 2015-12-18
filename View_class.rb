@@ -25,3 +25,4 @@ class View
     category_to_search -= 1
   end
 end
+
