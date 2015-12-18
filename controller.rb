@@ -1,5 +1,6 @@
 require_relative 'listing'
 require_relative 'View_class'
+require 'pry'
 
 class Controller
   CATEGORY_CODES = [["Aging", "aging"],
@@ -32,22 +33,23 @@ class Controller
 
   def initialize
     @viewer = View.new
-    main_runner
+    run_interface
   end
 
   def final_results
     @final_results
   end
 
-  def main_runner
+  def run_interface
     viewer.welcome_message
     viewer.category_prompt(CATEGORY_CODES)
-    user_index_choice = viewer.get_input - 1
-    listing_by_category = build_listing_objects(CATEGORY_CODES[user_index_choice][1])
-    viewer.borough_prompt(BOROUGHS)
-    user_burough_choice = viewer.get_input
-    final_results = find_listings_by_location(listing_by_category, user_burough_choice)
-    viewer.display_listing(final_results)
+      user_index_choice = viewer.get_input - 1
+      check_response_type(user_index_choice)
+      listing_by_category = build_listing_objects(CATEGORY_CODES[user_index_choice][1])
+      viewer.borough_prompt(BOROUGHS)
+      user_burough_choice = viewer.get_input - 1
+      final_results = find_listings_by_location(listing_by_category, user_burough_choice)
+      viewer.display_listing(final_results)
   end
 
   def build_listing_objects(category_code)
@@ -57,5 +59,11 @@ class Controller
 
   def find_listings_by_location(listings_array, borough_number)
     listings_array.select { |listing| listing.borough.include?(BOROUGHS[borough_number]) }
+  end
+
+  def check_response_type(arg)
+    if !(1..23).include?(arg)
+      print "Please select a number \n"
+    end
   end
 end
