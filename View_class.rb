@@ -1,10 +1,12 @@
 class View
   attr_accessor :category_to_search
 
-  require 'pry'
+  def initialize
+    @category_to_search = 0
+  end
 
   def welcome_message
-    print "Welcome to NYC Women's Resource Finder"
+    print "Welcome to NYC Women's Resource Finder \n"
   end
 
   def search_prompt(categories)
@@ -14,15 +16,13 @@ class View
           print "#{counter}: #{category_array[0]} \n"
           counter += 1
       end
-    category_to_search = gets.chomp.to_i
+    self.category_to_search = gets.chomp.to_i
     if !category_to_search.is_a?(Integer)
       raise ArgumentError.new("Please select a number \n")
       search_prompt
     end
+    self.category_to_search
   end
 
-  def convert_to_index(category_to_search) #move to controller
-    category_to_search -= 1
-  end
 end
 
