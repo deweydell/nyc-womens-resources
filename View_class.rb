@@ -23,7 +23,7 @@ class View
   end
 
   def display_listing(filtered_listings)
-    filtered_listings[0..4].each do |listing_object|
+    filtered_listings.each do |listing_object|
       print "#{listing_object.name} \n"
       print "#{listing_object.description} \n \n"
     end
